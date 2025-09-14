@@ -1,29 +1,39 @@
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm
+# Use Python 3.13 slim image
+FROM python:3.13-slim
 
-# Install uv.
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONHASHSEED=random
+ENV PIP_NO_CACHE_DIR=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Install system dependencies including libpq
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-    
+# Create app directory
 WORKDIR /app
 
-# Pre-cache the application dependencies.
-RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --no-install-project
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    gfortran \
+    libopenblas-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the application into the container.
-COPY . /app
+# Copy requirements first for better caching
+COPY requirements.txt .
 
-# Install the application dependencies.
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked
+# Install Python dependencies
+RUN python -m pip install --upgrade pip setuptools wheel && \
+    python -m pip install -r requirements.txt
 
+# Copy application code
+COPY . .
+
+# Expose port
 EXPOSE 8000
 
-# Run the application.
-CMD ["uv", "run", "python", "server.py", "--host", "0.0.0.0", "--port", "8000"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD python -c "import requests; requests.get('http://localhost:8000/api/config')"
+
+# Start the application
+CMD ["uvicorn", "src.server.app:app", "--host", "0.0.0.0", "--port", "8000"]
