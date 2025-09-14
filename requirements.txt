@@ -16,7 +16,6 @@ click==8.2.1
 colorama==0.4.6
 curl-cffi==0.13.0
 dataclasses-json==0.6.7
-deer-flow==0.1.0
 distro==1.9.0
 dnspython==2.8.0
 duckduckgo-search==8.1.1
