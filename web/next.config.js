@@ -42,12 +42,12 @@ const config = {
   serverRuntimeConfig: {
     // Will be available on both server and client
     publicRuntimeConfig: {
-      domain: process.env.RAILWAY_PUBLIC_DOMAIN || 'localhost',
+      domain: process.env.PUBLIC_URL || 'localhost',
     },
   },
 
   // Ensure Next.js listens on the correct port for Railway
-  ...(process.env.RAILWAY_PUBLIC_DOMAIN && {
+  ...(process.env.PUBLIC_URL && {
     serverOptions: {
       port: process.env.PORT || 8080,
       hostname: '0.0.0.0',
