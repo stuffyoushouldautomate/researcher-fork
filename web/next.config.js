@@ -38,21 +38,7 @@ const config = {
     return config;
   },
 
-  // Railway deployment configuration
-  serverRuntimeConfig: {
-    // Will be available on both server and client
-    publicRuntimeConfig: {
-      domain: process.env.PUBLIC_URL || 'localhost',
-    },
-  },
 
-  // Ensure Next.js listens on the correct port for Railway
-  ...(process.env.PUBLIC_URL && {
-    serverOptions: {
-      port: process.env.PORT || 8080,
-      hostname: '0.0.0.0',
-    },
-  }),
 
   // ... rest of the configuration.
   output: "standalone",
