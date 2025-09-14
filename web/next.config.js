@@ -40,6 +40,17 @@ const config = {
 
 
 
+  // Generic hosting configuration
+  ...(process.env.PUBLIC_URL && {
+    // Use PUBLIC_URL for any hosting platform
+    serverRuntimeConfig: {
+      hostname: new URL(process.env.PUBLIC_URL).hostname,
+    },
+    publicRuntimeConfig: {
+      hostname: new URL(process.env.PUBLIC_URL).hostname,
+    },
+  }),
+
   // ... rest of the configuration.
   output: "standalone",
 };
