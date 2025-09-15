@@ -85,15 +85,13 @@ cd deer-flow
 # Install dependencies, uv will take care of the python interpreter and venv creation, and install the required packages
 uv sync
 
-# Configure .env with your API keys
-# Tavily: https://app.tavily.com/home
-# Brave_SEARCH: https://brave.com/search/api/
-# volcengine TTS: Add your TTS credentials if you have them
+# Configure environment variables (RECOMMENDED)
 cp .env.example .env
 
-# See the 'Supported Search Engines' and 'Text-to-Speech Integration' sections below for all available options
+# Edit .env file with your API keys and configuration
+# See "Environment Variables Setup" section below for detailed instructions
 
-# Configure conf.yaml for your LLM model and API keys
+# Configure conf.yaml (optional - can be overridden by environment variables)
 # Please refer to 'docs/configuration_guide.md' for more details
 cp conf.yaml.example conf.yaml
 
@@ -107,6 +105,133 @@ Optionally, install web UI dependencies via [pnpm](https://pnpm.io/installation)
 ```bash
 cd deer-flow/web
 pnpm install
+```
+
+### Run
+Python server
+```bash
+python server.py --reload
+```
+
+Web UI
+```bash
+cd web
+pnpm build
+pnpm start
+```
+
+
+### Environment Variables Setup
+
+DeerFlow supports **environment variable configuration** for secure, cloud-ready deployments. This approach is recommended over hardcoding values in `conf.yaml` as it:
+
+- Keeps secrets out of your codebase
+- Enables different configurations for dev/staging/production
+- Works seamlessly with cloud deployment platforms
+- Prevents accidental commits of sensitive data
+
+#### Basic Setup
+
+1. **Copy the environment template:**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Edit `.env` with your API keys:**
+   ```bash
+   # Required: Google AI API Key (get from https://aistudio.google.com/app/apikey)
+   BASIC_MODEL__api_key=your_actual_google_ai_api_key_here
+
+   # Optional: Other LLM configurations
+   BASIC_MODEL__platform=google_aistudio
+   BASIC_MODEL__model=gemini-1.5-pro
+   BASIC_MODEL__max_retries=3
+   ```
+
+#### Environment Variable Format
+
+DeerFlow uses the format `{MODEL_TYPE}__{SETTING}` for environment variables:
+
+- `BASIC_MODEL__api_key` - API key for basic model
+- `BASIC_MODEL__model` - Model name (e.g., `gemini-1.5-pro`, `gemini-2.0-flash`)
+- `BASIC_MODEL__platform` - Platform type (`google_aistudio`, `openai`, etc.)
+- `BASIC_MODEL__max_retries` - Maximum retry attempts
+- `REASONING_MODEL__api_key` - API key for reasoning model (optional)
+- `VISION_MODEL__api_key` - API key for vision model (optional)
+- `CODE_MODEL__api_key` - API key for code model (optional)
+
+#### Complete .env Example
+
+```bash
+# Application Settings
+DEBUG=True
+APP_ENV=development
+
+# API Configuration
+NEXT_PUBLIC_API_URL="http://localhost:8000/api"
+
+# LLM Model Configuration
+# Basic model settings (Google AI Studio)
+BASIC_MODEL__platform=google_aistudio
+BASIC_MODEL__model=gemini-1.5-pro
+BASIC_MODEL__api_key=YOUR_GOOGLE_AI_API_KEY_HERE
+BASIC_MODEL__max_retries=3
+
+# Reasoning model settings (optional, uncomment to enable)
+# REASONING_MODEL__base_url=https://ark.cn-beijing.volces.com/api/v3
+# REASONING_MODEL__model=doubao-1-5-thinking-pro-m-250428
+# REASONING_MODEL__api_key=YOUR_REASONING_API_KEY_HERE
+# REASONING_MODEL__max_retries=3
+
+# Vision model settings (optional)
+# VISION_MODEL__platform=google_aistudio
+# VISION_MODEL__model=gemini-1.5-pro
+# VISION_MODEL__api_key=YOUR_GOOGLE_AI_API_KEY_HERE
+
+# Code model settings (optional)
+# CODE_MODEL__base_url=https://ark.cn-beijing.volces.com/api/v3
+# CODE_MODEL__model=doubao-1-5-pro-32k-250115
+# CODE_MODEL__api_key=YOUR_CODE_API_KEY_HERE
+
+# Search Engine Configuration
+SEARCH_API=tavily
+TAVILY_API_KEY=YOUR_TAVILY_API_KEY_HERE
+# BRAVE_SEARCH_API_KEY=xxx # Required only if SEARCH_API is brave_search
+
+# Other settings...
+AGENT_RECURSION_LIMIT=30
+ALLOWED_ORIGINS=http://localhost:3000
+ENABLE_MCP_SERVER_CONFIGURATION=false
+ENABLE_PYTHON_REPL=false
+```
+
+#### Getting API Keys
+
+- **Google AI Studio**: Visit [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+- **Tavily Search**: Visit [https://app.tavily.com/home](https://app.tavily.com/home)
+- **Other providers**: See the [Configuration Guide](docs/configuration_guide.md)
+
+#### Priority Order
+
+Environment variables **take precedence** over `conf.yaml` settings. This means:
+1. If `BASIC_MODEL__api_key` is set in `.env`, it will override any `api_key` in `conf.yaml`
+2. You can use `conf.yaml` as fallback defaults and `.env` for sensitive/production values
+3. For cloud deployments, set all configuration via environment variables
+
+#### Cloud Deployment
+
+For cloud platforms (AWS, GCP, Azure, etc.), set these as environment variables in your deployment configuration:
+
+```bash
+# Example for Docker deployment
+docker run -e BASIC_MODEL__api_key=your_key_here -e BASIC_MODEL__model=gemini-1.5-pro ...
+
+# Example for Kubernetes
+env:
+- name: BASIC_MODEL__api_key
+  value: "your_key_here"
+- name: BASIC_MODEL__model
+  value: "gemini-1.5-pro"
 ```
 
 ### Configurations

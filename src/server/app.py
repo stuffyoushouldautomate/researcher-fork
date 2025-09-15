@@ -18,6 +18,7 @@ from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 from psycopg_pool import AsyncConnectionPool
 
 from src.config.configuration import get_recursion_limit
+from src.config.database import init_database, get_db
 from src.config.loader import get_bool_env, get_str_env
 from src.config.report_style import ReportStyle
 from src.config.tools import SELECTED_RAG_PROVIDER
@@ -78,6 +79,13 @@ app.add_middleware(
 
 # Load examples into Milvus if configured
 load_examples()
+
+# Initialize research database
+try:
+    init_database()
+    logger.info("Research database initialized successfully")
+except Exception as e:
+    logger.error(f"Failed to initialize research database: {e}")
 
 in_memory_store = InMemoryStore()
 graph = build_graph_with_memory()
@@ -176,13 +184,25 @@ def _create_event_stream_message(
 
 def _create_interrupt_event(thread_id, event_data):
     """Create interrupt event."""
+    interrupt_obj = event_data["__interrupt__"][0]
+
+    # Handle different versions of LangGraph Interrupt object
+    try:
+        # Try the old format first (for backward compatibility)
+        interrupt_id = interrupt_obj.ns[0] if hasattr(interrupt_obj, 'ns') else str(interrupt_obj)
+        content = interrupt_obj.value if hasattr(interrupt_obj, 'value') else str(interrupt_obj)
+    except AttributeError:
+        # Newer version of LangGraph might have different structure
+        interrupt_id = str(interrupt_obj) if not hasattr(interrupt_obj, 'id') else interrupt_obj.id
+        content = str(interrupt_obj) if not hasattr(interrupt_obj, 'value') else interrupt_obj.value
+
     return _make_event(
         "interrupt",
         {
             "thread_id": thread_id,
-            "id": event_data["__interrupt__"][0].ns[0],
+            "id": interrupt_id,
             "role": "assistant",
-            "content": event_data["__interrupt__"][0].value,
+            "content": content,
             "finish_reason": "interrupt",
             "options": [
                 {"text": "Edit plan", "value": "edit_plan"},
