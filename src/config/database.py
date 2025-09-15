@@ -211,8 +211,8 @@ def init_database():
         print(f"❌ Import Error: {e}")
         if "psycopg" in str(e).lower():
             print("⚠️  PostgreSQL driver not available. Database features will be disabled.")
-            print("💡 To enable database features, ensure psycopg[binary] is installed.")
-            print("   The requirements.txt should include: psycopg[binary]==3.2.3")
+            print("💡 To enable database features, ensure psycopg2-binary is installed.")
+            print("   The requirements.txt should include: psycopg2-binary==2.9.9")
             print("   For Railway: Make sure the Dockerfile includes PostgreSQL client libraries")
             return False
         else:
