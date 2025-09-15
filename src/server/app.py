@@ -82,10 +82,14 @@ load_examples()
 
 # Initialize research database
 try:
-    init_database()
-    logger.info("Research database initialized successfully")
+    db_success = init_database()
+    if db_success:
+        logger.info("Research database initialized successfully")
+    else:
+        logger.warning("Research database initialization skipped - some features may be limited")
 except Exception as e:
     logger.error(f"Failed to initialize research database: {e}")
+    logger.warning("Continuing without database - some features may be limited")
 
 in_memory_store = InMemoryStore()
 graph = build_graph_with_memory()

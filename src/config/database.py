@@ -1,7 +1,7 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
-from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, ForeignKey, Boolean, Float
+from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, ForeignKey, Boolean, Float, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.pool import QueuePool
@@ -179,8 +179,27 @@ def get_db():
 def init_database():
     """Initialize database and create tables if they don't exist."""
     try:
+        # Test database connection first
+        engine = get_database_engine()
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        print("Database connection successful")
+
+        # Create tables
         create_tables()
         print("Database tables created successfully")
+    except ImportError as e:
+        if "psycopg" in str(e):
+            print("Warning: PostgreSQL driver not available. Database features will be disabled.")
+            print("To enable database features, ensure psycopg2-binary or psycopg is installed.")
+            return False
+        else:
+            raise
     except Exception as e:
         print(f"Error creating database tables: {e}")
+        # Don't raise exception for Railway deployments - allow app to start without DB
+        if os.getenv("RAILWAY_ENVIRONMENT") or os.getenv("RAILWAY_PROJECT_ID"):
+            print("Running on Railway - continuing without database initialization")
+            return False
         raise
+    return True
