@@ -19,6 +19,7 @@ from psycopg_pool import AsyncConnectionPool
 
 from src.config.configuration import get_recursion_limit
 from src.config.database import init_database, get_db
+from src.config.database_service import research_db
 from src.config.loader import get_bool_env, get_str_env
 from src.config.report_style import ReportStyle
 from src.config.tools import SELECTED_RAG_PROVIDER
@@ -240,9 +241,36 @@ async def _process_message_chunk(message_chunk, message_metadata, thread_id, age
         message_chunk, message_metadata, thread_id, agent_name
     )
 
+    # Save assistant messages to database
+    if isinstance(message_chunk, AIMessageChunk) and message_chunk.content:
+        try:
+            # Try to save the message to database (this will work if session exists)
+            research_db.save_session_message(
+                session_id=thread_id,  # We'll use thread_id as session_id for now
+                role="assistant",
+                content=message_chunk.content,
+                message_type="text"
+            )
+        except Exception as e:
+            # Silently fail if database is not available or session doesn't exist
+            pass
+
     if isinstance(message_chunk, ToolMessage):
         # Tool Message - Return the result of the tool call
         event_stream_message["tool_call_id"] = message_chunk.tool_call_id
+
+        # Save tool results to database
+        try:
+            research_db.save_session_message(
+                session_id=thread_id,
+                role="tool",
+                content=str(message_chunk.content),
+                message_type="tool_result",
+                tool_calls=message_chunk.tool_call_id
+            )
+        except Exception as e:
+            pass
+
         yield _make_event("tool_call_result", event_stream_message)
     elif isinstance(message_chunk, AIMessageChunk):
         # AI Message - Raw message tokens
@@ -252,6 +280,24 @@ async def _process_message_chunk(message_chunk, message_metadata, thread_id, age
             event_stream_message["tool_call_chunks"] = _process_tool_call_chunks(
                 message_chunk.tool_call_chunks
             )
+
+            # Save tool calls to database
+            try:
+                tool_calls_json = json.dumps([{
+                    "name": tc.get("name", ""),
+                    "args": tc.get("args", ""),
+                    "id": tc.get("id", "")
+                } for tc in message_chunk.tool_calls])
+                research_db.save_session_message(
+                    session_id=thread_id,
+                    role="assistant",
+                    content="",
+                    message_type="tool_call",
+                    tool_calls=tool_calls_json
+                )
+            except Exception as e:
+                pass
+
             yield _make_event("tool_calls", event_stream_message)
         elif message_chunk.tool_call_chunks:
             # AI Message - Tool Call Chunks
@@ -314,10 +360,44 @@ async def _astream_workflow_generator(
     report_style: ReportStyle,
     enable_deep_thinking: bool,
 ):
+    # Create research project and session for persistence
+    research_topic = messages[-1]["content"] if messages else "Research Session"
+    try:
+        # Create or get research project
+        project = research_db.create_research_project(
+            title=f"Research: {research_topic[:100]}",
+            description=f"Research session on: {research_topic}",
+            tags="auto-generated"
+        )
+        logger.info(f"Created research project: {project.id}")
+
+        # Create research session
+        session = research_db.create_research_session(
+            project_id=project.id,
+            session_id=thread_id,
+            title=f"Session: {research_topic[:50]}"
+        )
+        logger.info(f"Created research session: {session.id}")
+
+    except Exception as e:
+        logger.warning(f"Failed to create research project/session: {e}")
+
     # Process initial messages
     for message in messages:
         if isinstance(message, dict) and "content" in message:
             _process_initial_messages(message, thread_id)
+
+            # Save user message to database
+            try:
+                if 'session' in locals():
+                    research_db.save_session_message(
+                        session_id=session.id,
+                        role=message.get("role", "user"),
+                        content=message.get("content", ""),
+                        message_type="text"
+                    )
+            except Exception as e:
+                logger.warning(f"Failed to save user message: {e}")
 
     # Prepare workflow input
     workflow_input = {
