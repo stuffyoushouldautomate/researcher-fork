@@ -178,28 +178,66 @@ def get_db():
 # Initialize database on import
 def init_database():
     """Initialize database and create tables if they don't exist."""
+    print("=== Starting Database Initialization ===")
+
+    # Log environment detection
+    railway_env = os.getenv("RAILWAY_ENVIRONMENT")
+    railway_project = os.getenv("RAILWAY_PROJECT_ID")
+    print(f"Railway Environment: {railway_env}")
+    print(f"Railway Project ID: {railway_project}")
+
     try:
+        # Log database URL construction
+        db_url = get_database_url()
+        print(f"Database URL: {db_url.replace(db_url.split('@')[0].split('//')[1], '***:***@') if '@' in db_url else db_url}")
+
         # Test database connection first
+        print("Testing database connection...")
         engine = get_database_engine()
+        print(f"Database engine created: {type(engine)}")
+
         with engine.connect() as conn:
-            conn.execute(text("SELECT 1"))
-        print("Database connection successful")
+            print("Executing connection test...")
+            result = conn.execute(text("SELECT 1"))
+            print(f"Connection test result: {result.fetchone()}")
+        print("✅ Database connection successful")
 
         # Create tables
+        print("Creating database tables...")
         create_tables()
-        print("Database tables created successfully")
+        print("✅ Database tables created successfully")
+
     except ImportError as e:
+        print(f"❌ Import Error: {e}")
         if "psycopg" in str(e):
-            print("Warning: PostgreSQL driver not available. Database features will be disabled.")
-            print("To enable database features, ensure psycopg2-binary or psycopg is installed.")
+            print("⚠️  PostgreSQL driver not available. Database features will be disabled.")
+            print("💡 To enable database features, ensure psycopg2-binary or psycopg is installed.")
+            print("   Try adding 'psycopg2-binary==2.9.9' to your requirements.txt")
             return False
         else:
+            print(f"❌ Unexpected import error: {e}")
             raise
+
     except Exception as e:
-        print(f"Error creating database tables: {e}")
-        # Don't raise exception for Railway deployments - allow app to start without DB
-        if os.getenv("RAILWAY_ENVIRONMENT") or os.getenv("RAILWAY_PROJECT_ID"):
-            print("Running on Railway - continuing without database initialization")
+        print(f"❌ Database Error: {type(e).__name__}: {e}")
+
+        # Log additional context for debugging
+        print("🔍 Debug Information:")
+        print(f"  - Python version: {__import__('sys').version}")
+        print(f"  - Current working directory: {os.getcwd()}")
+
+        # Check if we're in a Railway environment
+        if railway_env or railway_project:
+            print("🚂 Running on Railway - continuing without database initialization")
+            print("💡 Railway Deployment Tips:")
+            print("   1. Check Railway PostgreSQL service is properly attached")
+            print("   2. Verify environment variables are set correctly")
+            print("   3. Try redeploying with: railway up")
+            print("   4. Check Railway logs for more detailed error information")
             return False
-        raise
+        else:
+            print("💻 Local development - raising error for debugging")
+            raise
+
+    print("=== Database Initialization Complete ===")
     return True
