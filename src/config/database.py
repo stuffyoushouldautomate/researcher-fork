@@ -128,7 +128,7 @@ def get_database_url() -> str:
     user = os.getenv("RESEARCH_DB_USER", "postgres")
     password = os.getenv("RESEARCH_DB_PASSWORD", "postgres")
 
-    return f"postgresql://{user}:{password}@{host}:{port}/{database}"
+    return f"postgresql+pg8000://{user}:{password}@{host}:{port}/{database}"
 
 def get_database_engine():
     """Create and return database engine."""
@@ -209,11 +209,11 @@ def init_database():
 
     except ImportError as e:
         print(f"❌ Import Error: {e}")
-        if "psycopg" in str(e).lower():
+        if "pg8000" in str(e).lower() or "postgresql" in str(e).lower():
             print("⚠️  PostgreSQL driver not available. Database features will be disabled.")
-            print("💡 To enable database features, ensure psycopg2cffi is installed.")
-            print("   The requirements.txt should include: psycopg2cffi==2.9.0")
-            print("   For Railway: Make sure the Dockerfile includes PostgreSQL development headers")
+            print("💡 To enable database features, ensure pg8000 is installed.")
+            print("   The requirements.txt should include: pg8000==1.31.2")
+            print("   pg8000 is a pure Python driver that doesn't require compilation")
             return False
         else:
             print(f"❌ Unexpected import error: {e}")
