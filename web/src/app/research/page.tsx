@@ -73,10 +73,10 @@ export default function ResearchPage() {
 
   const fetchProjectDetails = async (projectId: number) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000/api'
 
       // Fetch sessions
-      const sessionsResponse = await fetch(`${apiUrl}/api/research/projects/${projectId}/sessions`)
+      const sessionsResponse = await fetch(`${apiUrl}/research/projects/${projectId}/sessions`)
       if (sessionsResponse.ok) {
         const sessionsData = await sessionsResponse.json()
         setSessions(sessionsData)
@@ -85,7 +85,7 @@ export default function ResearchPage() {
       }
 
       // Fetch findings
-      const findingsResponse = await fetch(`${apiUrl}/api/research/projects/${projectId}/findings`)
+      const findingsResponse = await fetch(`${apiUrl}/research/projects/${projectId}/findings`)
       if (findingsResponse.ok) {
         const findingsData = await findingsResponse.json()
         setFindings(findingsData)
