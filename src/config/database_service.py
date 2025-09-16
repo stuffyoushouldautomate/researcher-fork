@@ -137,5 +137,36 @@ class ResearchDatabaseService:
                 ResearchDocument.project_id == project_id
             ).order_by(ResearchDocument.created_at.desc()).all()
 
+    @staticmethod
+    def extract_and_save_findings(content: str, project_id: int, session_id: str = None):
+        """Extract and save research findings from content."""
+        try:
+            # Simple extraction logic - look for key insights
+            findings = []
+
+            # Look for sentences that might contain findings
+            sentences = content.split('.')
+            for sentence in sentences:
+                sentence = sentence.strip()
+                if len(sentence) > 20 and any(keyword in sentence.lower() for keyword in
+                    ['found that', 'discovered', 'research shows', 'study found', 'results indicate',
+                     'conclusion', 'key finding', 'important', 'significant', 'evidence suggests']):
+                    findings.append(sentence)
+
+            # Save extracted findings
+            for finding in findings[:3]:  # Limit to 3 findings per message
+                research_db.create_research_finding(
+                    project_id=project_id,
+                    title=f"Research Finding from Session {session_id or 'Unknown'}",
+                    content=finding,
+                    category="insight",
+                    confidence=0.7,
+                    tags="auto-extracted"
+                )
+
+        except Exception as e:
+            # Silently fail for finding extraction
+            pass
+
 # Global service instance
 research_db = ResearchDatabaseService()

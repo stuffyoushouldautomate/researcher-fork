@@ -48,6 +48,7 @@ from src.server.rag_request import (
     RAGResourceRequest,
     RAGResourcesResponse,
 )
+from src.server.research_api import router as research_router
 from src.tools import VolcengineTTS
 from src.graph.checkpoint import chat_stream_message
 from src.utils.json_utils import sanitize_args
@@ -234,7 +235,7 @@ def _process_initial_messages(message, thread_id):
     )
 
 
-async def _process_message_chunk(message_chunk, message_metadata, thread_id, agent):
+async def _process_message_chunk(message_chunk, message_metadata, thread_id, agent, session_obj=None, project_obj=None):
     """Process a single message chunk and yield appropriate events."""
     agent_name = _get_agent_name(agent, message_metadata)
     event_stream_message = _create_event_stream_message(
@@ -245,12 +246,22 @@ async def _process_message_chunk(message_chunk, message_metadata, thread_id, age
     if isinstance(message_chunk, AIMessageChunk) and message_chunk.content:
         try:
             # Try to save the message to database (this will work if session exists)
-            research_db.save_session_message(
-                session_id=thread_id,  # We'll use thread_id as session_id for now
-                role="assistant",
-                content=message_chunk.content,
-                message_type="text"
-            )
+            if session_obj:
+                research_db.save_session_message(
+                    session_id=session_obj.id,
+                    role="assistant",
+                    content=message_chunk.content,
+                    message_type="text"
+                )
+
+                # Extract and save research findings from AI responses
+                if project_obj:
+                    research_db.extract_and_save_findings(
+                        content=message_chunk.content,
+                        project_id=project_obj.id,
+                        session_id=str(session_obj.id)
+                    )
+
         except Exception as e:
             # Silently fail if database is not available or session doesn't exist
             pass
@@ -261,13 +272,14 @@ async def _process_message_chunk(message_chunk, message_metadata, thread_id, age
 
         # Save tool results to database
         try:
-            research_db.save_session_message(
-                session_id=thread_id,
-                role="tool",
-                content=str(message_chunk.content),
-                message_type="tool_result",
-                tool_calls=message_chunk.tool_call_id
-            )
+            if session_obj:
+                research_db.save_session_message(
+                    session_id=session_obj.id,
+                    role="tool",
+                    content=str(message_chunk.content),
+                    message_type="tool_result",
+                    tool_calls=message_chunk.tool_call_id
+                )
         except Exception as e:
             pass
 
@@ -283,18 +295,19 @@ async def _process_message_chunk(message_chunk, message_metadata, thread_id, age
 
             # Save tool calls to database
             try:
-                tool_calls_json = json.dumps([{
-                    "name": tc.get("name", ""),
-                    "args": tc.get("args", ""),
-                    "id": tc.get("id", "")
-                } for tc in message_chunk.tool_calls])
-                research_db.save_session_message(
-                    session_id=thread_id,
-                    role="assistant",
-                    content="",
-                    message_type="tool_call",
-                    tool_calls=tool_calls_json
-                )
+                if session_obj:
+                    tool_calls_json = json.dumps([{
+                        "name": tc.get("name", ""),
+                        "args": tc.get("args", ""),
+                        "id": tc.get("id", "")
+                    } for tc in message_chunk.tool_calls])
+                    research_db.save_session_message(
+                        session_id=session_obj.id,
+                        role="assistant",
+                        content="",
+                        message_type="tool_call",
+                        tool_calls=tool_calls_json
+                    )
             except Exception as e:
                 pass
 
@@ -311,7 +324,7 @@ async def _process_message_chunk(message_chunk, message_metadata, thread_id, age
 
 
 async def _stream_graph_events(
-    graph_instance, workflow_input, workflow_config, thread_id
+    graph_instance, workflow_input, workflow_config, thread_id, session_obj=None, project_obj=None
 ):
     """Stream events from the graph and process them."""
     try:
@@ -331,7 +344,7 @@ async def _stream_graph_events(
             )
 
             async for event in _process_message_chunk(
-                message_chunk, message_metadata, thread_id, agent
+                message_chunk, message_metadata, thread_id, agent, session_obj, project_obj
             ):
                 yield event
     except Exception as e:
@@ -362,22 +375,25 @@ async def _astream_workflow_generator(
 ):
     # Create research project and session for persistence
     research_topic = messages[-1]["content"] if messages else "Research Session"
+    session_obj = None
+    project_obj = None
+
     try:
         # Create or get research project
-        project = research_db.create_research_project(
+        project_obj = research_db.create_research_project(
             title=f"Research: {research_topic[:100]}",
             description=f"Research session on: {research_topic}",
             tags="auto-generated"
         )
-        logger.info(f"Created research project: {project.id}")
+        logger.info(f"Created research project: {project_obj.id}")
 
         # Create research session
-        session = research_db.create_research_session(
-            project_id=project.id,
+        session_obj = research_db.create_research_session(
+            project_id=project_obj.id,
             session_id=thread_id,
             title=f"Session: {research_topic[:50]}"
         )
-        logger.info(f"Created research session: {session.id}")
+        logger.info(f"Created research session: {session_obj.id}")
 
     except Exception as e:
         logger.warning(f"Failed to create research project/session: {e}")
@@ -389,9 +405,9 @@ async def _astream_workflow_generator(
 
             # Save user message to database
             try:
-                if 'session' in locals():
+                if session_obj:
                     research_db.save_session_message(
-                        session_id=session.id,
+                        session_id=session_obj.id,
                         role=message.get("role", "user"),
                         content=message.get("content", ""),
                         message_type="text"
@@ -449,7 +465,7 @@ async def _astream_workflow_generator(
                 graph.checkpointer = checkpointer
                 graph.store = in_memory_store
                 async for event in _stream_graph_events(
-                    graph, workflow_input, workflow_config, thread_id
+                    graph, workflow_input, workflow_config, thread_id, session_obj, project_obj
                 ):
                     yield event
 
@@ -461,13 +477,13 @@ async def _astream_workflow_generator(
                 graph.checkpointer = checkpointer
                 graph.store = in_memory_store
                 async for event in _stream_graph_events(
-                    graph, workflow_input, workflow_config, thread_id
+                    graph, workflow_input, workflow_config, thread_id, session_obj, project_obj
                 ):
                     yield event
     else:
         # Use graph without MongoDB checkpointer
         async for event in _stream_graph_events(
-            graph, workflow_input, workflow_config, thread_id
+            graph, workflow_input, workflow_config, thread_id, session_obj, project_obj
         ):
             yield event
 
@@ -715,3 +731,6 @@ async def config():
         rag=RAGConfigResponse(provider=SELECTED_RAG_PROVIDER),
         models=get_configured_llm_models(),
     )
+
+# Include research API routes
+app.include_router(research_router, prefix="/api/research", tags=["research"])

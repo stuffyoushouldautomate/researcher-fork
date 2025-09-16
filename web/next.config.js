@@ -38,7 +38,15 @@ const config = {
     return config;
   },
 
-
+  // Proxy API calls to backend server
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/:path*`,
+      },
+    ];
+  },
 
   // Generic hosting configuration
   ...(process.env.PUBLIC_URL && {
