@@ -38,19 +38,6 @@ const config = {
     return config;
   },
 
-  // Proxy API calls to backend server
-  async rewrites() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
-    console.log('API URL for proxy:', apiUrl) // Debug log
-
-    return [
-      {
-        source: '/api/:path*',
-        destination: `${apiUrl}/api/:path*`,
-      },
-    ];
-  },
-
   // Generic hosting configuration
   ...(process.env.PUBLIC_URL && {
     // Use PUBLIC_URL for any hosting platform
