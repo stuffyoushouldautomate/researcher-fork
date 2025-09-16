@@ -56,8 +56,8 @@ export default function ResearchPage() {
 
   const fetchProjects = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000'
-      const response = await fetch(`${apiUrl}/api/research/projects`)
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000/api'
+      const response = await fetch(`${apiUrl}/research/projects`)
       if (response.ok) {
         const data = await response.json()
         setProjects(data)
