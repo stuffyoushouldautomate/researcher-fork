@@ -6,10 +6,14 @@ import {
   Brain,
   FilePen,
   MessageSquareQuote,
-  Microscope,
+  Search,
   SquareTerminal,
   UserCheck,
   Users,
+  Building2,
+  Scale,
+  Shield,
+  AlertTriangle,
   type LucideIcon,
 } from "lucide-react";
 
@@ -37,27 +41,27 @@ export const graph: Graph = {
     {
       id: "Start",
       type: "circle",
-      data: { label: "Start" },
+      data: { label: "Union Request" },
       position: { x: -75, y: ROW_1 },
     },
     {
       id: "Coordinator",
-      data: { icon: MessageSquareQuote, label: "Coordinator" },
+      data: { icon: Shield, label: "Union Coordinator" },
       position: { x: 150, y: ROW_1 },
     },
     {
       id: "Planner",
-      data: { icon: Brain, label: "Planner" },
+      data: { icon: Brain, label: "Investigation Planner" },
       position: { x: 150, y: ROW_2 },
     },
     {
       id: "Reporter",
-      data: { icon: FilePen, label: "Reporter" },
+      data: { icon: FilePen, label: "Report Generator" },
       position: { x: 275, y: ROW_3 },
     },
     {
       id: "HumanFeedback",
-      data: { icon: UserCheck, label: "Human Feedback" },
+      data: { icon: UserCheck, label: "Union Organizer" },
       position: { x: 25, y: ROW_4 },
     },
     {
@@ -67,18 +71,18 @@ export const graph: Graph = {
     },
     {
       id: "Researcher",
-      data: { icon: Microscope, label: "Researcher" },
+      data: { icon: AlertTriangle, label: "Company Investigator" },
       position: { x: -75, y: ROW_6 },
     },
     {
       id: "Coder",
-      data: { icon: SquareTerminal, label: "Coder" },
+      data: { icon: SquareTerminal, label: "Data Analyst" },
       position: { x: 125, y: ROW_6 },
     },
     {
       id: "End",
       type: "circle",
-      data: { label: "End" },
+      data: { label: "Union Report" },
       position: { x: 330, y: ROW_6 },
     },
   ],

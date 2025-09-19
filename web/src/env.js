@@ -23,6 +23,10 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_API_URL: z.string().optional(),
     NEXT_PUBLIC_STATIC_WEBSITE_ONLY: z.boolean().optional(),
+    NEXT_PUBLIC_BRAND_NAME: z.string().optional(),
+    NEXT_PUBLIC_BRAND_COLOR: z.string().optional(),
+    NEXT_PUBLIC_LOGO_URL: z.string().url().optional(),
+    NEXT_PUBLIC_FAVICON_URL: z.string().url().optional(),
   },
 
   /**
@@ -36,6 +40,10 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true",
     AMPLITUDE_API_KEY: process.env.AMPLITUDE_API_KEY,
     GITHUB_OAUTH_TOKEN: process.env.GITHUB_OAUTH_TOKEN,
+    NEXT_PUBLIC_BRAND_NAME: process.env.NEXT_PUBLIC_BRAND_NAME,
+    NEXT_PUBLIC_BRAND_COLOR: process.env.NEXT_PUBLIC_BRAND_COLOR,
+    NEXT_PUBLIC_LOGO_URL: process.env.NEXT_PUBLIC_LOGO_URL,
+    NEXT_PUBLIC_FAVICON_URL: process.env.NEXT_PUBLIC_FAVICON_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

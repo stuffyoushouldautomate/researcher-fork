@@ -1,4 +1,4 @@
-# 🦌 [关于 DeerFlow](https://github.com/bytedance/deer-flow)
+# 🚜 关于 Bulldozer
 
 > **源于开源，回馈开源**
 
@@ -8,7 +8,7 @@
 
 ## 🌟 GitHub 仓库
 
-在 GitHub 上探索 DeerFlow：[github.com/bytedance/deer-flow](https://github.com/bytedance/deer-flow)
+探索 Bulldozer 资源：[resources.bulldozer825.com](https://resources.bulldozer825.com)
 
 ---
 

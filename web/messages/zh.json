@@ -221,9 +221,9 @@
       "description": "通过我们的监督者 + 交接设计模式体验智能体团队合作。"
     },
     "joinCommunity": {
-      "title": "加入 DeerFlow 社区",
-      "description": "贡献精彩想法，塑造 DeerFlow 的未来。协作、创新并产生影响。",
-      "contributeNow": "立即贡献"
+      "title": "获取最新 Bulldozer 情报",
+      "description": "通过 Bulldozer 生态系统的最新新闻、工作和洞察保持领先。发现机会并与社区建立联系。",
+      "contributeNow": "查看最新情报"
     }
   }
 }

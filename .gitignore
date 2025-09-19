@@ -16,6 +16,7 @@ venv/
 
 # Environment variables
 .env
+.env.local
 
 # user conf
 conf.yaml

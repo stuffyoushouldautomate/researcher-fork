@@ -5,33 +5,33 @@ export const playbook = {
   steps: [
     {
       description:
-        "The Coordinator is responsible for engaging with the user to understand their problem and requirements.",
+        "Union organizers submit research requests to investigate companies, track violations, or analyze labor practices.",
       activeNodes: ["Start", "Coordinator"],
       activeEdges: ["Start->Coordinator"],
       tooltipPosition: "right",
     },
     {
       description:
-        "If the user's problem is clearly defined, the Coordinator will hand it over to the Planner.",
+        "The Union Coordinator analyzes the request and creates an investigation plan tailored to labor union needs.",
       activeNodes: ["Coordinator", "Planner"],
       activeEdges: ["Coordinator->Planner"],
       tooltipPosition: "left",
     },
     {
-      description: "Awaiting human feedback to refine the plan.",
+      description: "Union organizers review and refine the investigation plan to ensure it meets their specific needs.",
       activeNodes: ["Planner", "HumanFeedback"],
       activeEdges: ["Planner->HumanFeedback"],
       tooltipPosition: "left",
     },
     {
-      description: "Updating the plan based on human feedback.",
+      description: "The plan is updated based on union organizer feedback and strategic priorities.",
       activeNodes: ["HumanFeedback", "Planner"],
       activeEdges: ["HumanFeedback->Planner"],
       tooltipPosition: "left",
     },
     {
       description:
-        "The Research Team is responsible for conducting the core research tasks.",
+        "The Research Team begins comprehensive investigation of company practices, violations, and labor conditions.",
       activeNodes: ["Planner", "HumanFeedback", "ResearchTeam"],
       activeEdges: [
         "Planner->HumanFeedback",
@@ -42,35 +42,35 @@ export const playbook = {
     },
     {
       description:
-        "The Researcher is responsible for gathering information using search and crawling tools.",
+        "Company Investigators search for labor violations, safety records, wage theft cases, and anti-union activities.",
       activeNodes: ["ResearchTeam", "Researcher"],
       activeEdges: ["ResearchTeam->Researcher", "Researcher->ResearchTeam"],
       tooltipPosition: "left",
     },
     {
       description:
-        "The Coder is responsible for writing Python code to solve math problems, data analysis, and more.",
+        "Data Analysts process labor statistics, calculate wage gaps, analyze OSHA violations, and compile evidence for union campaigns.",
       tooltipPosition: "right",
       activeNodes: ["ResearchTeam", "Coder"],
       activeEdges: ["ResearchTeam->Coder", "Coder->ResearchTeam"],
     },
     {
       description:
-        "Once the research tasks are completed, the Researcher will hand over to the Planner.",
+        "Once investigation is complete, findings are compiled and prepared for union organizing campaigns.",
       activeNodes: ["ResearchTeam", "Planner"],
       activeEdges: ["ResearchTeam->Planner"],
       tooltipPosition: "left",
     },
     {
       description:
-        "If no additional information is required, the Planner will handoff to the Reporter.",
+        "The Investigation Planner reviews findings and prepares comprehensive reports for union meetings and legal cases.",
       activeNodes: ["Reporter", "Planner"],
       activeEdges: ["Planner->Reporter"],
       tooltipPosition: "right",
     },
     {
       description:
-        "The Reporter will prepare a report summarizing the results.",
+        "Union reports are generated with actionable insights, violation documentation, and strategic recommendations for organizing campaigns.",
       activeNodes: ["End", "Reporter"],
       activeEdges: ["Reporter->End"],
       tooltipPosition: "bottom",

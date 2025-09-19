@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 // SPDX-License-Identifier: MIT
 
-import { GithubFilled } from "@ant-design/icons";
+import { BookOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
@@ -24,8 +24,8 @@ export function JoinCommunitySection() {
         description={t("description")}
       />
       <Button className="text-xl" size="lg" asChild>
-        <Link href="https://github.com/bytedance/deer-flow" target="_blank">
-          <GithubFilled />
+        <Link href="https://datapilotplus.com" target="_blank">
+          <BookOutlined />
           {t("contributeNow")}
         </Link>
       </Button>

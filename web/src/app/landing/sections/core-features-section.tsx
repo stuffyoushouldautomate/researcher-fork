@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: MIT
 
 import {
-  Bird,
-  Microscope,
-  Podcast,
-  Usb,
-  User,
+  BookOpen,
+  Building2,
+  FileText,
+  Search,
+  Users,
   type LucideProps,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -26,28 +26,28 @@ type FeatureIcon = {
 
 const featureIcons: Array<FeatureIcon> = [
   {
-    Icon: Microscope,
-    href: "https://github.com/bytedance/deer-flow/blob/main/src/tools",
+    Icon: Search,
+    href: "https://datapilotplus.com",
     className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
   },
   {
-    Icon: User,
-    href: "https://github.com/bytedance/deer-flow/blob/main/src/graph/nodes.py",
+    Icon: Users,
+    href: "https://datapilotplus.com",
     className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
   },
   {
-    Icon: Bird,
-    href: "https://www.langchain.com/",
+    Icon: BookOpen,
+    href: "https://datapilotplus.com",
     className: "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2",
   },
   {
-    Icon: Usb,
-    href: "https://github.com/bytedance/deer-flow/blob/main/src/graph/nodes.py",
+    Icon: Building2,
+    href: "https://datapilotplus.com",
     className: "lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3",
   },
   {
-    Icon: Podcast,
-    href: "https://github.com/bytedance/deer-flow/blob/main/src/podcast",
+    Icon: FileText,
+    href: "https://datapilotplus.com",
     className: "lg:col-start-2 lg:col-end-3 lg:row-start-3 lg:row-end-4",
   },
 ];

@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 // SPDX-License-Identifier: MIT
 
-import { GithubFilled } from "@ant-design/icons";
+import { BookOutlined } from "@ant-design/icons";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from 'next-intl';
@@ -53,7 +53,7 @@ export function Jumbotron() {
               }
               href={
                 env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY
-                  ? "https://github.com/bytedance/deer-flow"
+                  ? "https://resources.bulldozer825.com"
                   : "/chat"
               }
             >
@@ -68,10 +68,10 @@ export function Jumbotron() {
               asChild
             >
               <Link
-                href="https://github.com/bytedance/deer-flow"
+                href="https://datapilotplus.com"
                 target="_blank"
               >
-                <GithubFilled />
+                <BookOutlined />
                 {tCommon('learnMore')}
               </Link>
             </Button>

@@ -14,10 +14,12 @@ import { env } from "~/env";
 
 import { Toaster } from "../components/deer-flow/toaster";
 
+const BRAND = (env.NEXT_PUBLIC_BRAND_NAME ?? "Bulldozer").trim();
+
 export const metadata: Metadata = {
-  title: "🦌 DeerFlow",
+  title: `🚜 ${BRAND}`,
   description:
-    "Deep Exploration and Efficient Research, an AI tool that combines language models with specialized tools for research tasks.",
+    "Bulldozer - A powerful labor union research tool for investigating companies, news, violations, and everything workers need to know.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
@@ -35,6 +37,14 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${geist.variable}`} suppressHydrationWarning>
       <head>
+        {/* Dynamic favicon when provided */}
+        {env.NEXT_PUBLIC_FAVICON_URL && (
+          <link rel="icon" href={env.NEXT_PUBLIC_FAVICON_URL} />
+        )}
+        {/* Dynamic brand color applied to CSS variable --brand */}
+        {env.NEXT_PUBLIC_BRAND_COLOR && (
+          <style>{`:root{--brand:${env.NEXT_PUBLIC_BRAND_COLOR};}`}</style>
+        )}
         {/* Define isSpace function globally to fix markdown-it issues with Next.js + Turbopack
           https://github.com/markdown-it/markdown-it/issues/1082#issuecomment-2749656365 */}
         <Script id="markdown-it-fix" strategy="beforeInteractive">

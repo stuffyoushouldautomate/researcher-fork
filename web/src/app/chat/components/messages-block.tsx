@@ -195,7 +195,7 @@ export function MessagesBlock({ className }: { className?: string }) {
                 {t("demoNotice")}{" "}
                 <a
                   className="underline"
-                  href="https://github.com/bytedance/deer-flow"
+                  href="https://resources.bulldozer825.com"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

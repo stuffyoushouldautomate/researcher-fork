@@ -5,7 +5,7 @@
     "settings": "Settings",
     "getStarted": "Get Started",
     "learnMore": "Learn More",
-    "starOnGitHub": "Star on GitHub",
+    "starOnGitHub": "View Resources",
     "send": "Send",
     "stop": "Stop",
     "linkNotReliable": "This link might be a hallucination from AI model and may not be reliable.",
@@ -16,21 +16,21 @@
     "placeholderWithRag": "What can I do for you? \nYou may refer to RAG resources by using @."
   },
   "header": {
-    "title": "DeerFlow"
+    "title": "Bulldozer"
   },
   "hero": {
-    "title": "Deep Research",
-    "subtitle": "at Your Fingertips",
-    "description": "Meet DeerFlow, your personal Deep Research assistant. With powerful tools like search engines, web crawlers, Python and MCP services, it delivers instant insights, comprehensive reports, and even captivating podcasts.",
-    "footnote": "* DEER stands for Deep Exploration and Efficient Research."
+    "title": "Labor Union Research",
+    "subtitle": "Power at Your Fingertips",
+    "description": "Meet Bulldozer, your powerful labor union research tool. Investigate companies, track violations, analyze news, and uncover everything workers need to know with comprehensive research reports.",
+    "footnote": "* Bulldozer - Clearing the way for worker justice through powerful research."
   },
   "settings": {
-    "title": "DeerFlow Settings",
-    "description": "Manage your DeerFlow settings here.",
+    "title": "Bulldozer Settings",
+    "description": "Manage your Bulldozer settings here.",
     "addServers": "Add Servers",
     "cancel": "Cancel",
     "addNewMCPServers": "Add New MCP Servers",
-    "mcpConfigDescription": "DeerFlow uses the standard JSON MCP config to create a new server.",
+    "mcpConfigDescription": "Bulldozer uses the standard JSON MCP config to create a new server.",
     "pasteConfigBelow": "Paste your config below and click \"Add\" to add new servers.",
     "add": "Add",
     "general": {
@@ -72,34 +72,34 @@
   "footer": {
     "quote": "Originated from Open Source, give back to Open Source.",
     "license": "Licensed under MIT License",
-    "copyright": "DeerFlow"
+    "copyright": "Bulldozer"
   },
   "chat": {
     "page": {
-        "loading": "Loading DeerFlow...",
+        "loading": "Loading Bulldozer...",
         "welcomeUser": "Welcome, {username}",
-        "starOnGitHub": "Star DeerFlow on GitHub"
+        "starOnGitHub": "View Bulldozer Resources"
     },
     "welcome": {
       "greeting": "👋 Hello, there!",
-      "description": "Welcome to 🦌 DeerFlow, a deep research assistant built on cutting-edge language models, helps you search on web, browse information, and handle complex tasks."
+      "description": "Welcome to 🚜 Bulldozer, a powerful labor union research tool built on cutting-edge language models, helps you investigate companies, track violations, and uncover worker rights information."
     },
     "conversationStarters": [
-      "How many times taller is the Eiffel Tower than the tallest building in the world?",
-      "How many years does an average Tesla battery last compared to a gasoline engine?",
-      "How many liters of water are required to produce 1 kg of beef?",
-      "How many times faster is the speed of light compared to the speed of sound?"
+      "What are the latest labor violations at Amazon warehouses?",
+      "How do union membership rates compare across different industries?",
+      "What are the current minimum wage laws in different states?",
+      "What safety violations have been reported at construction companies?"
     ],
     "inputBox": {
       "deepThinking": "Deep Thinking",
       "deepThinkingTooltip": {
         "title": "Deep Thinking Mode: {status}",
-        "description": "When enabled, DeerFlow will use reasoning model ({model}) to generate more thoughtful plans."
+        "description": "When enabled, Bulldozer will use reasoning model ({model}) to generate more thoughtful plans."
       },
       "investigation": "Investigation",
       "investigationTooltip": {
         "title": "Investigation Mode: {status}",
-        "description": "When enabled, DeerFlow will perform a quick search before planning. This is useful for researches related to ongoing events and news."
+        "description": "When enabled, Bulldozer will perform a quick search before planning. This is useful for researches related to ongoing events and news."
       },
       "enhancePrompt": "Enhance prompt with AI",
       "on": "On",
@@ -134,9 +134,9 @@
     },
     "messages": {
       "replaying": "Replaying",
-      "replayDescription": "DeerFlow is now replaying the conversation...",
+      "replayDescription": "Bulldozer is now replaying the conversation...",
       "replayHasStopped": "The replay has been stopped.",
-      "replayModeDescription": "You're now in DeerFlow's replay mode. Click the \"Play\" button on the right to start.",
+      "replayModeDescription": "You're now in Bulldozer's replay mode. Click the \"Play\" button on the right to start.",
       "play": "Play",
       "fastForward": "Fast Forward",
       "demoNotice": "* This site is for demo purposes only. If you want to try your own question, please",
@@ -144,86 +144,86 @@
       "cloneLocally": "to clone it locally and run it."
     },
     "multiAgent": {
-      "moveToPrevious": "Move to the previous step",
-      "playPause": "Play / Pause",
-      "moveToNext": "Move to the next step",
-      "toggleFullscreen": "Toggle fullscreen"
+      "moveToPrevious": "Move to the previous investigation step",
+      "playPause": "Play / Pause investigation workflow",
+      "moveToNext": "Move to the next investigation step",
+      "toggleFullscreen": "Toggle fullscreen view"
     }
   },
   "landing": {
     "caseStudies": {
       "title": "Case Studies",
-      "description": "See DeerFlow in action through replays.",
+      "description": "See Bulldozer in action through replays.",
       "clickToWatch": "Click to watch replay",
       "cases": [
         {
-          "title": "How tall is Eiffel Tower compared to tallest building?",
-          "description": "The research compares the heights and global significance of the Eiffel Tower and Burj Khalifa, and uses Python code to calculate the multiples."
+          "title": "What are the labor violations at major retail chains?",
+          "description": "The research investigates wage theft, safety violations, and union-busting practices at major retail companies, providing comprehensive documentation for union organizing."
         },
         {
-          "title": "What are the top trending repositories on GitHub?",
-          "description": "The research utilized MCP services to identify the most popular GitHub repositories and documented them in detail using search engines."
+          "title": "How do union membership rates vary by industry?",
+          "description": "The research analyzes union density across different sectors, identifying trends and factors affecting worker organization."
         },
         {
-          "title": "Write an article about Nanjing's traditional dishes",
-          "description": "The study vividly showcases Nanjing's famous dishes through rich content and imagery, uncovering their hidden histories and cultural significance."
+          "title": "What are the latest OSHA violations in construction?",
+          "description": "The study examines recent safety violations in the construction industry, highlighting patterns and companies with poor safety records."
         },
         {
-          "title": "How to decorate a small rental apartment?",
-          "description": "The study provides readers with practical and straightforward methods for decorating apartments, accompanied by inspiring images."
+          "title": "How do gig economy companies treat their workers?",
+          "description": "The research investigates labor practices at companies like Uber, DoorDash, and Instacart, documenting worker exploitation and organizing efforts."
         },
         {
-          "title": "Introduce the movie 'Léon: The Professional'",
-          "description": "The research provides a comprehensive introduction to the movie 'Léon: The Professional', including its plot, characters, and themes."
+          "title": "What are the current minimum wage campaigns across states?",
+          "description": "The research tracks ongoing minimum wage campaigns, analyzing their progress and impact on worker organizing."
         },
         {
-          "title": "How do you view the takeaway war in China? (in Chinese)",
-          "description": "The research analyzes the intensifying competition between JD and Meituan, highlighting their strategies, technological innovations, and challenges."
+          "title": "How do companies respond to union organizing drives?",
+          "description": "The research documents anti-union tactics used by employers and successful counter-strategies employed by workers."
         },
         {
-          "title": "Are ultra-processed foods linked to health?",
-          "description": "The research examines the health risks of rising ultra-processed food consumption, urging more research on long-term effects and individual differences."
+          "title": "What are the health and safety risks in manufacturing?",
+          "description": "The research examines workplace safety issues in manufacturing, identifying companies with poor safety records and successful safety campaigns."
         },
         {
-          "title": "Write an article on \"Would you insure your AI twin?\"",
-          "description": "The research explores the concept of insuring AI twins, highlighting their benefits, risks, ethical considerations, and the evolving regulatory."
+          "title": "How do labor laws differ between states?",
+          "description": "The research compares labor protections across different states, identifying gaps and opportunities for stronger worker rights."
         }
       ]
     },
     "coreFeatures": {
       "title": "Core Features",
-      "description": "Find out what makes DeerFlow effective.",
+      "description": "Find out what makes Bulldozer effective.",
       "features": [
         {
-          "name": "Dive Deeper and Reach Wider",
-          "description": "Unlock deeper insights with advanced tools. Our powerful search + crawling and Python tools gathers comprehensive data, delivering in-depth reports to enhance your study."
+          "name": "Deep Company Investigation",
+          "description": "Uncover labor violations, safety records, and anti-union activities with powerful search and data analysis tools. Get comprehensive reports on company practices."
         },
         {
-          "name": "Human-in-the-loop",
-          "description": "Refine your research plan, or adjust focus areas all through simple natural language."
+          "name": "Human-in-the-loop Research",
+          "description": "Refine your investigation focus, adjust research priorities, and guide the research process through natural language interaction."
         },
         {
-          "name": "Lang Stack",
-          "description": "Build with confidence using the LangChain and LangGraph frameworks."
+          "name": "Labor Law Analysis",
+          "description": "Analyze labor laws, track regulatory changes, and understand legal frameworks across different jurisdictions."
         },
         {
-          "name": "MCP Integrations",
-          "description": "Supercharge your research workflow and expand your toolkit with seamless MCP integrations."
+          "name": "Union Organizing Support",
+          "description": "Access tools for tracking organizing campaigns, documenting violations, and building cases for union drives."
         },
         {
-          "name": "Podcast Generation",
-          "description": "Instantly generate podcasts from reports. Perfect for on-the-go learning or sharing findings effortlessly."
+          "name": "Report Generation",
+          "description": "Generate comprehensive reports and presentations perfect for union meetings, legal cases, and organizing campaigns."
         }
       ]
     },
     "multiAgent": {
-      "title": "Multi-Agent Architecture",
-      "description": "Experience the agent teamwork with our Supervisor + Handoffs design pattern."
+      "title": "Labor Union Research Architecture",
+      "description": "Experience how Bulldozer's specialized agents work together to investigate companies and support union organizing campaigns."
     },
     "joinCommunity": {
-      "title": "Join the DeerFlow Community",
-      "description": "Contribute brilliant ideas to shape the future of DeerFlow. Collaborate, innovate, and make impacts.",
-      "contributeNow": "Contribute Now"
+      "title": "Get the Latest Bulldozer Intel",
+      "description": "Stay ahead with the latest news, jobs, and insights from the Bulldozer ecosystem. Discover opportunities and connect with the community.",
+      "contributeNow": "View Latest Intel"
     }
   }
 }

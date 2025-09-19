@@ -1,8 +1,7 @@
 // Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 // SPDX-License-Identifier: MIT
 
-import { Bike, Building, Film, Github, Ham, Home, Pizza } from "lucide-react";
-import { Bot } from "lucide-react";
+import { Building, Users, Shield, Briefcase, Scale, Factory, FileText, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { BentoCard } from "~/components/magicui/bento-grid";
@@ -10,14 +9,14 @@ import { BentoCard } from "~/components/magicui/bento-grid";
 import { SectionHeader } from "../components/section-header";
 
 const caseStudyIcons = [
-  { id: "eiffel-tower-vs-tallest-building", icon: Building },
-  { id: "github-top-trending-repo", icon: Github },
-  { id: "nanjing-traditional-dishes", icon: Ham },
-  { id: "rental-apartment-decoration", icon: Home },
-  { id: "review-of-the-professional", icon: Film },
-  { id: "china-food-delivery", icon: Bike },
-  { id: "ultra-processed-foods", icon: Pizza },
-  { id: "ai-twin-insurance", icon: Bot },
+  { id: "labor-violations-retail", icon: Building },
+  { id: "union-membership-rates", icon: Users },
+  { id: "osha-violations-construction", icon: Shield },
+  { id: "gig-economy-workers", icon: Briefcase },
+  { id: "minimum-wage-campaigns", icon: Scale },
+  { id: "union-organizing-drives", icon: Factory },
+  { id: "manufacturing-safety", icon: FileText },
+  { id: "labor-laws-by-state", icon: TrendingUp },
 ];
 
 export function CaseStudySection() {
