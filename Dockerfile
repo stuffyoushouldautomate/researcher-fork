@@ -32,12 +32,12 @@ RUN python -m pip install --upgrade pip setuptools wheel && \
 # Copy application code
 COPY . .
 
-# Expose port
-EXPOSE 8000
+# Railway provides the PORT environment variable
+EXPOSE $PORT
 
-# Health check
+# Health check (use dynamic port)
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:8000/api/config')"
+    CMD python -c "import os, requests; requests.get(f'http://localhost:{os.getenv(\"PORT\", 8000)}/api/config')"
 
-# Start the application
-CMD ["uvicorn", "src.server.app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start the application (use dynamic port and Railway-friendly host)
+CMD ["sh", "-c", "uvicorn src.server.app:app --host 0.0.0.0 --port ${PORT:-8000}"]

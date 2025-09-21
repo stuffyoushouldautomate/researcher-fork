@@ -51,6 +51,11 @@ const config = {
 
   // ... rest of the configuration.
   output: "standalone",
+  
+  // Railway deployment configuration
+  experimental: {
+    serverComponentsExternalPackages: [],
+  },
 };
 
 export default withNextIntl(config);
