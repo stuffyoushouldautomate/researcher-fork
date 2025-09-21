@@ -29,14 +29,13 @@ export function useReplayMetadata() {
         setError(false);
         setTitle(title ?? null);
         if (title) {
-          const brand = env.NEXT_PUBLIC_BRAND_NAME ?? "DeerFlow";
-          document.title = `${title} - ${brand}`;
+          document.title = `${title} - 🚜 Bulldozer`;
         }
       })
       .catch(() => {
         setError(true);
         setTitle("Error: the replay is not available.");
-        document.title = env.NEXT_PUBLIC_BRAND_NAME ?? "DeerFlow";
+        document.title = "🚜 Bulldozer";
       })
       .finally(() => {
         isLoading.current = false;
