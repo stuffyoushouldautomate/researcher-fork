@@ -45,7 +45,7 @@
     },
     "mcp": {
       "title": "MCP Servers",
-      "description": "The Model Context Protocol boosts DeerFlow by integrating external tools for tasks like private domain searches, web browsing, food ordering, and more. Click here to",
+      "description": "The Model Context Protocol boosts Bulldozer by integrating external tools for tasks like private domain searches, web browsing, food ordering, and more. Click here to",
       "learnMore": "learn more about MCP.",
       "enableDisable": "Enable/disable server",
       "deleteServer": "Delete server",
@@ -58,15 +58,19 @@
     "reportStyle": {
       "writingStyle": "Writing Style",
       "chooseTitle": "Choose Writing Style",
-      "chooseDesc": "Select the writing style for your research reports. Different styles are optimized for different audiences and purposes.",
-      "academic": "Academic",
-      "academicDesc": "Formal, objective, and analytical with precise terminology",
-      "popularScience": "Popular Science",
-      "popularScienceDesc": "Engaging and accessible for general audience",
-      "news": "News",
-      "newsDesc": "Factual, concise, and impartial journalistic style",
-      "socialMedia": "Social Media",
-      "socialMediaDesc": "Concise, attention-grabbing, and shareable"
+      "chooseDesc": "Select the writing style for your labor research reports. Different styles are optimized for different audiences and purposes.",
+      "bulldozer": "Bulldozer",
+      "bulldozerDesc": "Comprehensive labor research with strategic analysis and actionable insights",
+      "unionOrganizer": "Union Organizer",
+      "unionOrganizerDesc": "Engaging and accessible for workers and union members",
+      "investigator": "Investigator",
+      "investigatorDesc": "Factual, detailed investigative reporting on labor violations",
+      "resourceExpert": "Resource Expert",
+      "resourceExpertDesc": "Concise, practical information for labor advocates and organizers",
+      "strategist": "Strategist",
+      "strategistDesc": "Strategic analysis for union campaigns and labor negotiations",
+      "reporter": "Reporter",
+      "reporterDesc": "Clear, factual reporting on labor news and developments"
     }
   },
   "footer": {

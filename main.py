@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Entry point script for the DeerFlow project.
+Entry point script for the Bulldozer project.
 """
 
 import argparse

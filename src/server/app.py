@@ -58,7 +58,7 @@ logger = logging.getLogger(__name__)
 INTERNAL_SERVER_ERROR_DETAIL = "Internal Server Error"
 
 app = FastAPI(
-    title="DeerFlow API",
+    title="Bulldozer API",
     description="API for Deer",
     version="0.1.0",
 )
@@ -635,19 +635,21 @@ async def enhance_prompt(request: EnhancePromptRequest):
             try:
                 # Handle both uppercase and lowercase input
                 style_mapping = {
-                    "ACADEMIC": ReportStyle.ACADEMIC,
-                    "POPULAR_SCIENCE": ReportStyle.POPULAR_SCIENCE,
-                    "NEWS": ReportStyle.NEWS,
-                    "SOCIAL_MEDIA": ReportStyle.SOCIAL_MEDIA,
+                    "BULLDOZER": ReportStyle.BULLDOZER,
+                    "UNION_ORGANIZER": ReportStyle.UNION_ORGANIZER,
+                    "INVESTIGATOR": ReportStyle.INVESTIGATOR,
+                    "RESOURCE_EXPERT": ReportStyle.RESOURCE_EXPERT,
+                    "STRATEGIST": ReportStyle.STRATEGIST,
+                    "REPORTER": ReportStyle.REPORTER,
                 }
                 report_style = style_mapping.get(
-                    request.report_style.upper(), ReportStyle.ACADEMIC
+                    request.report_style.upper(), ReportStyle.BULLDOZER
                 )
             except Exception:
-                # If invalid style, default to ACADEMIC
-                report_style = ReportStyle.ACADEMIC
+                # If invalid style, default to BULLDOZER
+                report_style = ReportStyle.BULLDOZER
         else:
-            report_style = ReportStyle.ACADEMIC
+            report_style = ReportStyle.BULLDOZER
 
         workflow = build_prompt_enhancer_graph()
         final_state = workflow.invoke(

@@ -12,8 +12,7 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "preview": "next build && next start",
-    "start": "next start -H 0.0.0.0 -p 8080",
+    "preview": "next build && node .next/standalone/server.js",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

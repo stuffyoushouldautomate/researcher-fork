@@ -3,7 +3,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Check, FileText, Newspaper, Users, GraduationCap } from "lucide-react";
+import { Check, FileText, Newspaper, Users, GraduationCap, Search, Target } from "lucide-react";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -21,28 +21,40 @@ import { Tooltip } from "./tooltip";
 
 const REPORT_STYLES = [
   {
-    value: "academic" as const,
-    labelKey: "academic",
-    descriptionKey: "academicDesc",
+    value: "bulldozer" as const,
+    labelKey: "bulldozer",
+    descriptionKey: "bulldozerDesc",
     icon: GraduationCap,
   },
   {
-    value: "popular_science" as const,
-    labelKey: "popularScience",
-    descriptionKey: "popularScienceDesc",
+    value: "union_organizer" as const,
+    labelKey: "unionOrganizer",
+    descriptionKey: "unionOrganizerDesc",
+    icon: Users,
+  },
+  {
+    value: "investigator" as const,
+    labelKey: "investigator",
+    descriptionKey: "investigatorDesc",
+    icon: Search,
+  },
+  {
+    value: "resource_expert" as const,
+    labelKey: "resourceExpert",
+    descriptionKey: "resourceExpertDesc",
     icon: FileText,
   },
   {
-    value: "news" as const,
-    labelKey: "news",
-    descriptionKey: "newsDesc",
-    icon: Newspaper,
+    value: "strategist" as const,
+    labelKey: "strategist",
+    descriptionKey: "strategistDesc",
+    icon: Target,
   },
   {
-    value: "social_media" as const,
-    labelKey: "socialMedia",
-    descriptionKey: "socialMediaDesc",
-    icon: Users,
+    value: "reporter" as const,
+    labelKey: "reporter",
+    descriptionKey: "reporterDesc",
+    icon: Newspaper,
   },
 ];
 
@@ -52,7 +64,7 @@ export function ReportStyleDialog() {
   const currentStyle = useSettingsStore((state) => state.general.reportStyle);
 
   const handleStyleChange = (
-    style: "academic" | "popular_science" | "news" | "social_media",
+    style: "bulldozer" | "union_organizer" | "investigator" | "resource_expert" | "strategist" | "reporter",
   ) => {
     setReportStyle(style);
     setOpen(false);

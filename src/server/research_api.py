@@ -77,6 +77,9 @@ async def get_research_projects():
             ) for p in projects
         ]
     except Exception as e:
+        # Return empty list if database is not available (local development)
+        if "Can't create a connection" in str(e) or "InterfaceError" in str(e):
+            return []
         raise HTTPException(status_code=500, detail=f"Failed to fetch projects: {str(e)}")
 
 @router.get("/projects/{project_id}", response_model=ResearchProjectResponse)

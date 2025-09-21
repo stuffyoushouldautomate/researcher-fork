@@ -2,7 +2,10 @@ import enum
 
 
 class ReportStyle(enum.Enum):
-    ACADEMIC = "academic"
-    POPULAR_SCIENCE = "popular_science"
-    NEWS = "news"
-    SOCIAL_MEDIA = "social_media"
+    BULLDOZER = "bulldozer"
+    NEW_SPREADER = "new_spreaders"
+    UNION_ORGANIZER = "union_organizer"
+    INVESTIGATOR = "investigator"
+    RESOURCE_EXPERT = "resource_expert"
+    STRATEGIST = "strategist"
+    REPORTER = "reporter"

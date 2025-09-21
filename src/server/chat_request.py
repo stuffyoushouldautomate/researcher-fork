@@ -60,7 +60,7 @@ class ChatRequest(BaseModel):
         True, description="Whether to get background investigation before plan"
     )
     report_style: Optional[ReportStyle] = Field(
-        ReportStyle.ACADEMIC, description="The style of the report"
+        ReportStyle.BULLDOZER, description="The style of the report"
     )
     enable_deep_thinking: Optional[bool] = Field(
         False, description="Whether to enable deep thinking"
@@ -105,5 +105,5 @@ class EnhancePromptRequest(BaseModel):
         "", description="Additional context about the intended use"
     )
     report_style: Optional[str] = Field(
-        "academic", description="The style of the report"
+        "bulldozer", description="The style of the report (bulldozer, union_organizer, investigator, resource_expert, strategist, reporter)"
     )

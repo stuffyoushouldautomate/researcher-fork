@@ -231,10 +231,14 @@ function MessageBubble({
   message: Message;
   children: React.ReactNode;
 }) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
   return (
     <div
       className={cn(
-        "group flex w-auto max-w-[90vw] flex-col rounded-2xl px-4 py-3 break-words",
+        "group flex w-auto flex-col break-words",
+        isMobile ? "max-w-[95vw] px-3 py-2" : "max-w-[90vw] px-4 py-3",
+        isMobile ? "rounded-xl" : "rounded-2xl",
         message.role === "user" && "bg-brand rounded-ee-none",
         message.role === "assistant" && "bg-card rounded-es-none",
         className,
@@ -451,10 +455,10 @@ function PlanCard({
     message.content && message.content.trim() !== "",
   );
 
-  // 判断是否正在思考：有推理内容但还没有主要内容
+  // Check if currently thinking: has reasoning content but no main content yet
   const isThinking = Boolean(reasoningContent && !hasMainContent);
 
-  // 判断是否应该显示计划：有主要内容就显示（无论是否还在流式传输）
+  // Check if should display plan: show if has main content (regardless of streaming status)
   const shouldShowPlan = hasMainContent;
   const handleAccept = useCallback(async () => {
     if (onSendMessage) {

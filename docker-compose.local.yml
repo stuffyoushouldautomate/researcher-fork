@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: bulldozer-postgres
+    environment:
+      POSTGRES_DB: bulldozer_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - bulldozer-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bulldozer-backend
+    env_file:
+      - .env.docker
+    volumes:
+      - ./conf.yaml:/app/conf.yaml:ro
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - bulldozer-network
+
+  frontend:
+    build:
+      context: ./web
+      dockerfile: .Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:8000/api
+    container_name: bulldozer-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.docker
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - bulldozer-network
+
+volumes:
+  postgres_data:
+
+networks:
+  bulldozer-network:
+    driver: bridge
+

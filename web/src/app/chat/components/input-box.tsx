@@ -23,6 +23,7 @@ import {
   setEnableBackgroundInvestigation,
   useSettingsStore,
 } from "~/core/store";
+import { useIsMobile } from "~/hooks/use-mobile";
 import { cn } from "~/lib/utils";
 
 export function InputBox({
@@ -49,6 +50,7 @@ export function InputBox({
 }) {
   const t = useTranslations("chat.inputBox");
   const tCommon = useTranslations("common");
+  const isMobile = useIsMobile();
   const enableDeepThinking = useSettingsStore(
     (state) => state.general.enableDeepThinking,
   );
@@ -127,7 +129,8 @@ export function InputBox({
   return (
     <div
       className={cn(
-        "bg-card relative flex h-full w-full flex-col rounded-[24px] border",
+        "bg-card relative flex h-full w-full flex-col border",
+        isMobile ? "rounded-2xl" : "rounded-[24px]",
         className,
       )}
       ref={containerRef}
@@ -164,7 +167,10 @@ export function InputBox({
               <div className="relative h-full w-full">
                 {/* Sparkle effect overlay */}
                 <motion.div
-                  className="absolute inset-0 rounded-[24px] bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10"
+                  className={cn(
+                    "absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10",
+                    isMobile ? "rounded-2xl" : "rounded-[24px]"
+                  )}
                   animate={{
                     background: [
                       "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1), rgba(59, 130, 246, 0.1))",
@@ -201,8 +207,8 @@ export function InputBox({
         </AnimatePresence>
         <MessageInput
           className={cn(
-            "h-24 px-4 pt-5",
-            feedback && "pt-9",
+            isMobile ? "h-20 px-3 pt-4" : "h-24 px-4 pt-5",
+            feedback && (isMobile ? "pt-8" : "pt-9"),
             isEnhanceAnimating && "transition-all duration-500",
           )}
           ref={inputRef}
@@ -212,9 +218,14 @@ export function InputBox({
           onChange={setCurrentPrompt}
         />
       </div>
-      <div className="flex items-center px-4 py-2">
-        <div className="flex grow gap-2">
-          {config?.models.reasoning?.[0] && (
+      <div className={cn("flex items-center py-2", isMobile ? "px-3" : "px-4")}>
+        {/* Mobile: Stack buttons vertically, Desktop: horizontal */}
+        <div className={cn(
+          "flex grow gap-2",
+          isMobile ? "flex-col" : "flex-row"
+        )}>
+          {/* Mobile: Show only essential buttons */}
+          {!isMobile && config?.models.reasoning?.[0] && (
             <Tooltip
               className="max-w-60"
               title={
@@ -247,33 +258,35 @@ export function InputBox({
             </Tooltip>
           )}
 
-          <Tooltip
-            className="max-w-60"
-            title={
-              <div>
-                <h3 className="mb-2 font-bold">
-                  {t("investigationTooltip.title", {
-                    status: backgroundInvestigation ? t("on") : t("off"),
-                  })}
-                </h3>
-                <p>{t("investigationTooltip.description")}</p>
-              </div>
-            }
-          >
-            <Button
-              className={cn(
-                "rounded-2xl",
-                backgroundInvestigation && "!border-brand !text-brand",
-              )}
-              variant="outline"
-              onClick={() =>
-                setEnableBackgroundInvestigation(!backgroundInvestigation)
+          {!isMobile && (
+            <Tooltip
+              className="max-w-60"
+              title={
+                <div>
+                  <h3 className="mb-2 font-bold">
+                    {t("investigationTooltip.title", {
+                      status: backgroundInvestigation ? t("on") : t("off"),
+                    })}
+                  </h3>
+                  <p>{t("investigationTooltip.description")}</p>
+                </div>
               }
             >
-              <Detective /> {t("investigation")}
-            </Button>
-          </Tooltip>
-          <ReportStyleDialog />
+              <Button
+                className={cn(
+                  "rounded-2xl",
+                  backgroundInvestigation && "!border-brand !text-brand",
+                )}
+                variant="outline"
+                onClick={() =>
+                  setEnableBackgroundInvestigation(!backgroundInvestigation)
+                }
+              >
+                <Detective /> {t("investigation")}
+              </Button>
+            </Tooltip>
+          )}
+          {!isMobile && <ReportStyleDialog />}
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <Tooltip title={t("enhancePrompt")}>
@@ -281,14 +294,15 @@ export function InputBox({
               variant="ghost"
               size="icon"
               className={cn(
-                "hover:bg-accent h-10 w-10",
+                "hover:bg-accent",
+                isMobile ? "h-9 w-9" : "h-10 w-10",
                 isEnhancing && "animate-pulse",
               )}
               onClick={handleEnhancePrompt}
               disabled={isEnhancing || currentPrompt.trim() === ""}
             >
               {isEnhancing ? (
-                <div className="flex h-10 w-10 items-center justify-center">
+                <div className={cn("flex items-center justify-center", isMobile ? "h-9 w-9" : "h-10 w-10")}>
                   <div className="bg-foreground h-3 w-3 animate-bounce rounded-full opacity-70" />
                 </div>
               ) : (
@@ -300,11 +314,14 @@ export function InputBox({
             <Button
               variant="outline"
               size="icon"
-              className={cn("h-10 w-10 rounded-full")}
+              className={cn(
+                "rounded-full",
+                isMobile ? "h-9 w-9" : "h-10 w-10"
+              )}
               onClick={() => inputRef.current?.submit()}
             >
               {responding ? (
-                <div className="flex h-10 w-10 items-center justify-center">
+                <div className={cn("flex items-center justify-center", isMobile ? "h-9 w-9" : "h-10 w-10")}>
                   <div className="bg-foreground h-4 w-4 rounded-sm opacity-70" />
                 </div>
               ) : (

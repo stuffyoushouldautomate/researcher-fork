@@ -25,7 +25,7 @@ export const env = createEnv({
     NEXT_PUBLIC_STATIC_WEBSITE_ONLY: z.boolean().optional(),
     NEXT_PUBLIC_BRAND_NAME: z.string().optional(),
     NEXT_PUBLIC_BRAND_COLOR: z.string().optional(),
-    NEXT_PUBLIC_LOGO_URL: z.string().url().optional(),
+    NEXT_PUBLIC_LOGO_URL: z.string().optional(),
     NEXT_PUBLIC_FAVICON_URL: z.string().url().optional(),
   },
 

@@ -3,7 +3,7 @@
 
 import "~/styles/globals.css";
 
-import { type Metadata } from "next";
+import { type Metadata, type Viewport } from "next";
 import { Geist } from "next/font/google";
 import Script from "next/script";
 import { NextIntlClientProvider } from 'next-intl';
@@ -21,6 +21,17 @@ export const metadata: Metadata = {
   description:
     "Bulldozer - A powerful labor union research tool for investigating companies, news, violations, and everything workers need to know.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
 const geist = Geist({

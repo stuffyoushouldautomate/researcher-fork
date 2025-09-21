@@ -46,7 +46,7 @@ class VikingDBKnowledgeBaseProvider(Retriever):
         if retrieval_size:
             self.retrieval_size = int(retrieval_size)
 
-        # 设置region，如果需要可以从环境变量获取
+        # Set region, can be obtained from environment variables if needed
         region = os.getenv("VIKINGDB_KNOWLEDGE_BASE_REGION", "cn-north-1")
         self.region = region
 
@@ -214,7 +214,7 @@ class VikingDBKnowledgeBaseProvider(Retriever):
 
             path = "/api/knowledge/collection/search_knowledge"
 
-            # 使用新的签名请求方法
+            # Use new signature request method
             response = self._make_signed_request(
                 method="POST", path=path, data=request_params
             )

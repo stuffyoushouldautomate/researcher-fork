@@ -2,7 +2,7 @@ services:
   deer-flow-web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: .Dockerfile
       args:
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     image: deer-flow-web

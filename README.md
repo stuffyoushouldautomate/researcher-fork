@@ -20,7 +20,7 @@ Bulldozer is designed to empower labor unions and worker advocates with powerful
 - `BASIC_MODEL__api_key=<your_google_ai_api_key_here>` Google AI Studio Google AI API Key (get from https://aistudio.google.com/app/apikey)
 - `TAVILY_API_KEY=<your_tavily_api_key_here>` Tavily Search API Key (get from https://app.tavily.com/home)
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/deerflow?referralCode=-Yg50p&utm_medium=integration&utm_source=template&utm_campaign=generic)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/Bulldozer?referralCode=-Yg50p&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
 Deploy Bulldozer quickly and easily on Railway, a cloud platform that manages your infrastructure for you. This one-click deployment provisions the Bulldozer backend, web UI, and a Postgres database to store your research results, requiring only your Google AI Studio and Tavily API keys to get started.
 
@@ -114,13 +114,13 @@ Environment variables override settings in conf.yaml, allowing flexible configur
 </p>
 
 
-# General DeerFlow (not tested on Railway setup)
+# General Bulldozer (not tested on Railway setup)
 
 ## Supported Search Engines
 
 ### Web Search
 
-DeerFlow supports multiple search engines that can be configured in your `.env` file using the `SEARCH_API` variable:
+Bulldozer supports multiple search engines that can be configured in your `.env` file using the `SEARCH_API` variable:
 
 - **Tavily** (default): A specialized search API for AI applications
   - Requires `TAVILY_API_KEY` in your `.env` file
@@ -146,7 +146,7 @@ SEARCH_API=tavily
 
 ### Private Knowledgebase
 
-DeerFlow support private knowledgebase such as ragflow and vikingdb, so that you can use your private documents to answer questions.
+Bulldozer support private knowledgebase such as ragflow and vikingdb, so that you can use your private documents to answer questions.
 
 - **[RAGFlow](https://ragflow.io/docs/dev/)**：open source RAG engine
    ```
@@ -208,7 +208,7 @@ Bulldozer implements a modular multi-agent system architecture designed for auto
 
 ![Architecture Diagram](./assets/architecture.png)
 
-> See it live at [deerflow.tech](https://deerflow.tech/#multi-agent-architecture)
+> See it live at [Bulldozer.tech](https://Bulldozer.tech/#multi-agent-architecture)
 
 The system employs a streamlined workflow with the following components:
 
@@ -285,11 +285,11 @@ make format
 
 ### Debugging with LangGraph Studio
 
-DeerFlow uses LangGraph for its workflow architecture. You can use LangGraph Studio to debug and visualize the workflow in real-time.
+Bulldozer uses LangGraph for its workflow architecture. You can use LangGraph Studio to debug and visualize the workflow in real-time.
 
 #### Running LangGraph Studio Locally
 
-DeerFlow includes a `langgraph.json` configuration file that defines the graph structure and dependencies for the LangGraph Studio. This file points to the workflow graphs defined in the project and automatically loads environment variables from the `.env` file.
+Bulldozer includes a `langgraph.json` configuration file that defines the graph structure and dependencies for the LangGraph Studio. This file points to the workflow graphs defined in the project and automatically loads environment variables from the `.env` file.
 
 ##### Mac
 
@@ -339,7 +339,7 @@ When you submit a research topic in the Studio UI, you'll be able to see the ent
 
 ### Enabling LangSmith Tracing
 
-DeerFlow supports LangSmith tracing to help you debug and monitor your workflows. To enable LangSmith tracing:
+Bulldozer supports LangSmith tracing to help you debug and monitor your workflows. To enable LangSmith tracing:
 
 1. Make sure your `.env` file has the following configurations (see `.env.example`):
 
@@ -422,7 +422,7 @@ docker stop deer-flow-api-app
 
 ### Docker Compose (include both backend and frontend)
 
-DeerFlow provides a docker-compose setup to easily run both the backend and frontend together:
+Bulldozer provides a docker-compose setup to easily run both the backend and frontend together:
 
 ```bash
 # building docker image
@@ -437,7 +437,7 @@ docker compose up
 
 ## Examples
 
-The following examples demonstrate the capabilities of DeerFlow:
+The following examples demonstrate the capabilities of Bulldozer:
 
 ### Research Reports
 
@@ -523,7 +523,7 @@ The application now supports an interactive mode with built-in questions in both
 
 ### Human in the Loop
 
-DeerFlow includes a human in the loop mechanism that allows you to review, edit, and approve research plans before they are executed:
+Bulldozer includes a human in the loop mechanism that allows you to review, edit, and approve research plans before they are executed:
 
 1. **Plan Review**: When human in the loop is enabled, the system will present the generated research plan for your review before execution
 
@@ -568,12 +568,12 @@ This project is open source and available under the [MIT License](./LICENSE).
 
 ## Acknowledgments
 
-DeerFlow is built upon the incredible work of the open-source community. We are deeply grateful to all the projects and contributors whose efforts have made DeerFlow possible. Truly, we stand on the shoulders of giants.
+Bulldozer is built upon the incredible work of the open-source community. We are deeply grateful to all the projects and contributors whose efforts have made Bulldozer possible. Truly, we stand on the shoulders of giants.
 
 We would like to extend our sincere appreciation to the following projects for their invaluable contributions:
 
 - **[LangChain](https://github.com/langchain-ai/langchain)**: Their exceptional framework powers our LLM interactions and chains, enabling seamless integration and functionality.
-- **[LangGraph](https://github.com/langchain-ai/langgraph)**: Their innovative approach to multi-agent orchestration has been instrumental in enabling DeerFlow's sophisticated workflows.
+- **[LangGraph](https://github.com/langchain-ai/langgraph)**: Their innovative approach to multi-agent orchestration has been instrumental in enabling Bulldozer's sophisticated workflows.
 - **[Novel](https://github.com/steven-tey/novel)**: Their Notion-style WYSIWYG editor supports our report editing and AI-assisted rewriting.
 - **[RAGFlow](https://github.com/infiniflow/ragflow)**: We have achieved support for research on users' private knowledge bases through integration with RAGFlow.
 
@@ -581,12 +581,12 @@ These projects exemplify the transformative power of open-source collaboration, 
 
 ### Key Contributors
 
-A heartfelt thank you goes out to the core authors of `DeerFlow`, whose vision, passion, and dedication have brought this project to life:
+A heartfelt thank you goes out to the core authors of `Bulldozer`, whose vision, passion, and dedication have brought this project to life:
 
 - **[Daniel Walnut](https://github.com/hetaoBackend/)**
 - **[Henry Li](https://github.com/magiccube/)**
 
-Your unwavering commitment and expertise have been the driving force behind DeerFlow's success. We are honored to have you at the helm of this journey.
+Your unwavering commitment and expertise have been the driving force behind Bulldozer's success. We are honored to have you at the helm of this journey.
 
 ## Star History
 

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { env } from "~/env";
 
-import type { DeerFlowConfig } from "../config";
+import type { BulldozerConfig } from "../config";
 import { useReplay } from "../replay";
 
 import { fetchReplayTitle } from "./chat";
@@ -29,14 +29,14 @@ export function useReplayMetadata() {
         setError(false);
         setTitle(title ?? null);
         if (title) {
-          const brand = env.NEXT_PUBLIC_BRAND_NAME ?? "DeerFlow";
+          const brand = env.NEXT_PUBLIC_BRAND_NAME ?? "Bulldozer";
           document.title = `${title} - ${brand}`;
         }
       })
       .catch(() => {
         setError(true);
         setTitle("Error: the replay is not available.");
-        document.title = env.NEXT_PUBLIC_BRAND_NAME ?? "DeerFlow";
+        document.title = env.NEXT_PUBLIC_BRAND_NAME ?? "Bulldozer";
       })
       .finally(() => {
         isLoading.current = false;
@@ -46,11 +46,11 @@ export function useReplayMetadata() {
 }
 
 export function useConfig(): {
-  config: DeerFlowConfig | null;
+  config: BulldozerConfig | null;
   loading: boolean;
 } {
   const [loading, setLoading] = useState(true);
-  const [config, setConfig] = useState<DeerFlowConfig | null>(null);
+  const [config, setConfig] = useState<BulldozerConfig | null>(null);
 
   useEffect(() => {
     if (env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY) {
