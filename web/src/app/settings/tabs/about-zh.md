@@ -1,4 +1,4 @@
-# 🚜 关于 Bulldozer
+# 关于 Bulldozer™
 
 > **源于开源，回馈开源**
 

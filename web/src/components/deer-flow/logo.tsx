@@ -12,7 +12,7 @@ export function Logo() {
     >
       <Image
         src="/logo.png"
-        alt="🚜 Bulldozer"
+        alt="Bulldozer™"
         width={120}
         height={32}
         priority

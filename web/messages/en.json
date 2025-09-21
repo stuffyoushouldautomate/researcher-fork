@@ -82,7 +82,7 @@
     },
     "welcome": {
       "greeting": "👋 Hello, there!",
-      "description": "Welcome to 🚜 Bulldozer, a powerful labor union research tool built on cutting-edge language models, helps you investigate companies, track violations, and uncover worker rights information."
+      "description": "Welcome to Bulldozer™, a powerful labor union research tool built on cutting-edge language models, helps you investigate companies, track violations, and uncover worker rights information."
     },
     "conversationStarters": [
       "What are the latest labor violations at Amazon warehouses?",

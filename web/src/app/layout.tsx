@@ -15,7 +15,7 @@ import { env } from "~/env";
 import { Toaster } from "../components/deer-flow/toaster";
 
 export const metadata: Metadata = {
-  title: `🚜 Bulldozer`,
+  title: `Bulldozer™`,
   description:
     "Bulldozer - A powerful labor union research tool for investigating companies, news, violations, and everything workers need to know.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],

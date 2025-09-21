@@ -1,4 +1,4 @@
-# 🚜 About Bulldozer
+# About Bulldozer™
 
 > **Powering Labor Union Research and Worker Justice**
 
