@@ -57,7 +57,7 @@ USER nextjs
 # Railway provides the PORT environment variable
 EXPOSE $PORT
 
-ENV PORT=$PORT
+ENV PORT=${PORT:-8080}
 ENV HOSTNAME="0.0.0.0"
 
 # Start the application

@@ -629,32 +629,12 @@ async def enhance_prompt(request: EnhancePromptRequest):
         sanitized_prompt = request.prompt.replace("\r\n", "").replace("\n", "")
         logger.info(f"Enhancing prompt: {sanitized_prompt}")
 
-        # Convert string report_style to ReportStyle enum
-        report_style = None
-        if request.report_style:
-            try:
-                # Handle both uppercase and lowercase input
-                style_mapping = {
-                    "ACADEMIC": ReportStyle.ACADEMIC,
-                    "POPULAR_SCIENCE": ReportStyle.POPULAR_SCIENCE,
-                    "NEWS": ReportStyle.NEWS,
-                    "SOCIAL_MEDIA": ReportStyle.SOCIAL_MEDIA,
-                }
-                report_style = style_mapping.get(
-                    request.report_style.upper(), ReportStyle.ACADEMIC
-                )
-            except Exception:
-                # If invalid style, default to ACADEMIC
-                report_style = ReportStyle.ACADEMIC
-        else:
-            report_style = ReportStyle.ACADEMIC
-
         workflow = build_prompt_enhancer_graph()
         final_state = workflow.invoke(
             {
                 "prompt": request.prompt,
                 "context": request.context,
-                "report_style": report_style,
+                "report_style": request.report_style,
             }
         )
         return {"result": final_state["output"]}
@@ -734,3 +714,9 @@ async def config():
 
 # Include research API routes
 app.include_router(research_router, prefix="/api/research", tags=["research"])
+
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for Railway and other monitoring services."""
+    return {"status": "healthy", "service": "Bulldozer API", "version": "0.1.0"}

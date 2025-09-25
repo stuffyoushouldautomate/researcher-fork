@@ -1,0 +1,89 @@
+{
+  "services": {
+    "Bulldozer-Frontend": {
+      "description": "Frontend Next.js application",
+      "environment_variables": {
+        "AGENT_RECURSION_LIMIT": "30",
+        "ALLOWED_ORIGINS": "*",
+        "APP_ENV": "production",
+        "BASIC_MODEL__api_key": "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",
+        "BASIC_MODEL__max_retries": "3",
+        "BASIC_MODEL__model": "gpt-4o",
+        "BASIC_MODEL__platform": "openai",
+        "BRAVE_SEARCH_API_KEY": "BSA0RYWejvJiCzynjg82gwttUX48lMI",
+        "DEBUG": "False",
+        "ENABLE_MCP_SERVER_CONFIGURATION": "false",
+        "ENABLE_PYTHON_REPL": "true",
+        "GITHUB_OAUTH_TOKEN": "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",
+        "JINA_API_KEY": "jina_7f6a6be9c6cb4edc87d30421a55219d94w751aHStEU-AcakhEVKcEmX8N6p",
+        "LANGGRAPH_CHECKPOINT_DB_URL": "postgresql://postgres:NzSKXXskZABBHhdHJNAhSTjTaHDxAuaz@caboose.proxy.rlwy.net:12760/railway",
+        "LANGGRAPH_CHECKPOINT_SAVER": "true",
+        "NEXT_PUBLIC_API_URL": "https://bulldozerai.up.railway.app/api",
+        "NEXT_PUBLIC_BRAND_COLOR": "#ff6b35",
+        "NEXT_PUBLIC_BRAND_NAME": "Bulldozer",
+        "NEXT_PUBLIC_LOGO_URL": "/logo.png",
+        "PUBLIC_URL": "https://bulldozer825.com",
+        "RAILWAY_START_COMMAND": "node .next/standalone/server.js",
+        "SEARCH_API": "tavily",
+        "SEARCH_ENGINE__engine": "tavily",
+        "SEARCH_ENGINE__exclude_domains": "unreliable-site.com,spam-domain.net",
+        "SEARCH_ENGINE__include_domains": "trusted-news.com,gov.org,reliable-source.edu",
+        "TAVILY_API_KEY": "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"
+      }
+    },
+    "Bulldozer-Backend": {
+      "description": "Backend FastAPI application",
+      "environment_variables": {
+        "AGENT_RECURSION_LIMIT": "30",
+        "ALLOWED_ORIGINS": "https://bulldozer825.com,https://bulldozerai.up.railway.app",
+        "BASIC_MODEL__api_key": "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",
+        "BASIC_MODEL__max_retries": "3",
+        "BASIC_MODEL__model": "gpt-4o",
+        "BASIC_MODEL__platform": "openai",
+        "BRAVE_SEARCH_API_KEY": "BSA0RYWejvJiCzynjg82gwttUX48lMI",
+        "JINA_API_KEY": "jina_7f6a6be9c6cb4edc87d30421a55219d94w751aHStEU-AcakhEVKcEmX8N6p",
+        "LANGGRAPH_CHECKPOINT_DB_URL": "postgresql://postgres:NzSKXXskZABBHhdHJNAhSTjTaHDxAuaz@caboose.proxy.rlwy.net:12760/railway",
+        "LANGGRAPH_CHECKPOINT_SAVER": "true",
+        "PGDATA": "/var/lib/postgresql/data/pgdata",
+        "PGDATABASE": "railway",
+        "PGHOST": "caboose.proxy.rlwy.net",
+        "PGPASSWORD": "NzSKXXskZABBHhdHJNAhSTjTaHDxAuaz",
+        "PGPORT": "12760",
+        "PGUSER": "postgres",
+        "PORT": "8000",
+        "RESEARCH_DB_HOST": "caboose.proxy.rlwy.net",
+        "RESEARCH_DB_NAME": "railway",
+        "RESEARCH_DB_PASSWORD": "NzSKXXskZABBHhdHJNAhSTjTaHDxAuaz",
+        "RESEARCH_DB_PORT": "12760",
+        "RESEARCH_DB_USER": "postgres",
+        "SEARCH_API": "tavily",
+        "TAVILY_API_KEY": "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"
+      }
+    },
+    "PostGres-Bulldozer": {
+      "description": "PostgreSQL database service",
+      "environment_variables": {
+        "POSTGRES_DB": "railway",
+        "POSTGRES_PASSWORD": "NzSKXXskZABBHhdHJNAhSTjTaHDxAuaz",
+        "POSTGRES_USER": "postgres"
+      },
+      "note": "This service uses Railway's managed PostgreSQL template and automatically provides connection variables to other services"
+    }
+  },
+  "notes": {
+    "double_underscores": "Variables with double underscores (__) like BASIC_MODEL__api_key are Railway's way of representing nested configuration objects",
+    "template_variables": "Variables like ${Postgres.PGUSER} are Railway's template system for referencing other services - these should be replaced with actual values",
+    "domains": {
+      "frontend": "bulldozer825.com",
+      "backend": "bulldozerai.up.railway.app",
+      "database": "caboose.proxy.rlwy.net:12760"
+    },
+    "api_keys": {
+      "openai": "Used for GPT-4o model",
+      "tavily": "Used for web search functionality",
+      "brave_search": "Alternative search engine",
+      "jina": "Used for document processing",
+      "github": "Used for repository access"
+    }
+  }
+}

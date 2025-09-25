@@ -104,6 +104,6 @@ class EnhancePromptRequest(BaseModel):
     context: Optional[str] = Field(
         "", description="Additional context about the intended use"
     )
-    report_style: Optional[str] = Field(
-        "academic", description="The style of the report"
+    report_style: Optional[ReportStyle] = Field(
+        ReportStyle.ACADEMIC, description="The style of the report"
     )
